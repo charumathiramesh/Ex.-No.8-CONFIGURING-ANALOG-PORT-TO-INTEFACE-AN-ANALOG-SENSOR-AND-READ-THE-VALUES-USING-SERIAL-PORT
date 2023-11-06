@@ -1,7 +1,7 @@
  
 
 
-### Ex. No. :8 CONFIGURING ANALOG PORT TO INTEFACE AN ANALOG SENSOR AND READ THE VALUES USING SERIAL PORT
+# Ex. No. :8 CONFIGURING ANALOG PORT TO INTEFACE AN ANALOG SENSOR AND READ THE VALUES USING SERIAL PORT
 ## Date: 
 ###  
 
@@ -150,16 +150,52 @@ This module also includes a potentiometer that will fix the threshold value, & t
 
 
 ##  Program 
+```
+NAME : CHARUMATHI R
+REF NO : 212222240021
+ ```
+```c
+#include "main.h"
+#include"stdio.h"
+uint32_t adcvalue;
+#if defined (_ICCARM_) || defined (__ARMCC_VERSION)
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#elif defined(_GNUC_)
+   
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#endif  
 
 
- 
+PUTCHAR_PROTOTYPE
+{
 
-## Result :
- 
+  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
+
+  return ch;
+}
+
+while(1)
+{
+
+	HAL_ADC_Start(&hadc1);
+			HAL_ADC_PollForConversion(&hadc1,100);
+			adcvalue = HAL_ADC_GetValue(&hadc1);
+			HAL_ADC_Stop(&hadc1);
+			HAL_Delay(500);
+			printf("ADC VALUE:%ld\n",adcvalue);
+
+}
+
+```
 ## Output  :
 
+![280748087-a3e86836-a694-470c-ab6b-d7dedd684312](https://github.com/charumathiramesh/Ex.-No.8-CONFIGURING-ANALOG-PORT-TO-INTEFACE-AN-ANALOG-SENSOR-AND-READ-THE-VALUES-USING-SERIAL-PORT/assets/120204455/7d810bea-bc6f-4f38-aba0-d2f72d5f8aa3)
+
+![280747938-7b4d677b-b41b-4e6d-95a7-64a7f70c484d](https://github.com/charumathiramesh/Ex.-No.8-CONFIGURING-ANALOG-PORT-TO-INTEFACE-AN-ANALOG-SENSOR-AND-READ-THE-VALUES-USING-SERIAL-PORT/assets/120204455/c066bc4d-ba1d-435a-8eca-ab05ad381a6f)
 
 
+## Result :
+ADC channel for interfacing an analog sensor is configured and the values on the serial utility port is measured
 
 
 
